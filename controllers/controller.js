@@ -3,11 +3,7 @@ const DataTypes = require("sequelize");
 const users = require("../models/users")(sequelize, DataTypes);
 
 const getAllUsers = (req, res) => {
-  users.findAll().then((err, data) => {
-    if (err) {
-      res.status(404).json(err);
-      return;
-    }
+  users.findAll().then((data) => {
     res.status(200).json(data);
   });
 };
@@ -20,11 +16,7 @@ const getOneUser = (req, res) => {
         Login: req.params.login,
       },
     })
-    .then((err, data) => {
-      if (err) {
-        res.status(404).json(err);
-        return;
-      }
+    .then((data) => {
       res.status(200).json(data);
     });
 };
