@@ -21,7 +21,30 @@ const getOneUser = (req, res) => {
     });
 };
 
+const userAuth = (req, res) => {
+  users.findAll().then((data) => {
+    res.status(200).json(data);
+  });
+};
+
+const getUserAuth = (req, res) => {
+  console.log(req.params);
+  users
+    .findAll({
+      where: {
+        Login: req.body.login,
+        passwd: req.body.passwd,
+      },
+    })
+    .then((data) => {
+      data.passwd =  md5(data.passwd);
+      res.status(200).json(data);
+  });
+};
+
 module.exports = {
   getAllUsers,
   getOneUser,
+  userAuth,
+  getUserAuth
 };
