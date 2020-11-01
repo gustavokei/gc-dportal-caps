@@ -22,7 +22,7 @@ const getOneUser = (req, res) => {
     });
 };
 
-const getCharRank = (req, res) => {
+const getCharRankExp = (req, res) => {
   Characters
     .findAll({
       order: [["Exp", "DESC"]],
@@ -35,8 +35,22 @@ const getCharRank = (req, res) => {
   });
 };
 
+const getCharRankWin = (req, res) => {
+  Characters
+    .findAll({
+      order: [["Win", "DESC"]],
+      where: {
+        CharType: req.params.chartype,
+      },
+    })
+    .then((data) => {
+      res.status(200).json(data);
+  });
+};
+
 module.exports = {
   getAllUsers,
   getOneUser,
-  getCharRank
+  getCharRankExp,
+  getCharRankWin
 };
