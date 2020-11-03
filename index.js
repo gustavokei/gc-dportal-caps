@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const indexRouter = require("./routes/router");
-const bodyParser = require('body-parser');
 
 
 // Add headers
@@ -34,7 +33,7 @@ app.use(express.json())
 
 app.use("/api", indexRouter);
 
-app.use(bodyParser.json());
+
 
 
 //Listen on port for Heroku OR 4000
