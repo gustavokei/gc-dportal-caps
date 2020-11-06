@@ -29,6 +29,7 @@ const getCharRankExp = (req, res) => {
       where: {
         CharType: req.params.chartype,
       },
+      limit : 10,
     })
     .then((data) => {
       res.status(200).json(data);
@@ -42,6 +43,7 @@ const getCharRankWin = (req, res) => {
       where: {
         CharType: req.params.chartype,
       },
+      limit : 10,
     })
     .then((data) => {
       res.status(200).json(data);
