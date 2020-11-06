@@ -31,16 +31,14 @@ const userAuth = (req, res) => {
       }
      }).then(users => {
        if (!users) {
-         return res.status(404).json({
-           errors: [{ users: "not found" }],
-         });
+         return res.status(404).send("User not found");
           }  else {
           
              if (md5(passwd)!==users.passwd) 
-              return res.status(400).json({"Incorrect" : "Password"});
+              return res.status(404).send("Invalid password");
             res
             .status(200)
-            .json({"status" : "success"}); 
+            .send("Success"); 
        }  
    });
   
