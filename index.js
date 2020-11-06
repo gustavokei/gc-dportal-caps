@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const indexRouter = require("./routes/router");
 
+
 // Add headers
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
@@ -28,7 +29,12 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.use(express.json())
+
 app.use("/api", indexRouter);
+
+
+
 
 //Listen on port for Heroku OR 4000
 app.listen(process.env.PORT || 4000, function () {

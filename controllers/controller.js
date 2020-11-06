@@ -2,6 +2,7 @@ const sequelize = require("../config/sequelize").sequelize;
 const DataTypes = require("sequelize");
 const users = require("../models/users")(sequelize, DataTypes);
 const Characters = require("../models/Characters")(sequelize, DataTypes);
+var md5 = require('md5');
 
 const getAllUsers = (req, res) => {
   users.findAll().then((data) => {
@@ -50,9 +51,29 @@ const getCharRankWin = (req, res) => {
   });
 };
 
+const userAuth = (req, res) => {
+     let { Login, passwd } = req.body;
+     users.findOne({
+      where: {
+       Login: Login
+      }
+     }).then(users => {
+       if (!users) {
+         return res.status(404).send("User not found");
+          } else {
+             if (md5(passwd)!==users.passwd) 
+              return res.status(404).send("Invalid password");
+            res
+            .status(200)
+            .send("Success"); 
+       }  
+   });
+}
+
 module.exports = {
   getAllUsers,
   getOneUser,
   getCharRankExp,
   getCharRankWin
+  userAuth
 };
