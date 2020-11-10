@@ -59,8 +59,9 @@ const register = function(req, res){
     if (users) {
       return res.status(400).json({ email: "Email already exists" });
     } else {
+     password =  md5(req.body.passwd);
 
-  userRegstr(req.body.Login, req.body.passwd, req.body.email);
+  userRegstr(req.body.Login, password, req.body.email);
 
     }
   });
@@ -73,6 +74,7 @@ function userRegstr(Login, passwd, email){
    { type: sequelize.QueryTypes.INSERT }
    ).then(function (result) {
         if(result){
+          users.sequelize.query("INSERT INTO GCAPPEmail (Login, email) VALUES('" + Login + "','" + email + "')",{ type: sequelize.QueryTypes.INSERT });
         return res.json(200, {response: {code: 200, message:'User Registered Successfully'}});
     } else{
        res.json(400, {response: {code: 400, message: 'Error Occured while Registration'}});
