@@ -1,6 +1,7 @@
 const sequelize = require("../config/sequelize").sequelize;
 const DataTypes = require("sequelize");
 const users = require("../models/users")(sequelize, DataTypes);
+const Characters = require("../models/Characters")(sequelize, DataTypes);
 var md5 = require('md5');
 
 const getAllUsers = (req, res) => {
@@ -21,7 +22,6 @@ const getOneUser = (req, res) => {
       res.status(200).json(data);
     });
 };
-
 
 const userAuth = (req, res) => {
      let { Login, passwd } = req.body;
@@ -44,10 +44,30 @@ const userAuth = (req, res) => {
   
 }
 
-
+const getCharacter = (req, res) => {
+  let {Login, CharType} = req.body;
+  Characters
+    .findAll({
+      where: {
+        Login: Login,
+        CharType: CharType
+      }
+    }).then(Characters => {
+      if (!Characters){
+        return res.status(404).send("No Character found for this user");
+      } else {
+        if(CharType!==Characters.CharType) {
+         return res.status(404).send("Character do not exist");
+        } else {
+          res.status(200).json(data);
+        }
+      }  
+    });
+};
 
 module.exports = {
   getAllUsers,
   getOneUser,
-  userAuth
+  userAuth,
+  getCharacter
 };
