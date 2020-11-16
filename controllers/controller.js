@@ -1,6 +1,7 @@
 const sequelize = require("../config/sequelize").sequelize;
 const DataTypes = require("sequelize");
 const users = require("../models/users")(sequelize, DataTypes);
+const Characters = require("../models/Characters")(sequelize, DataTypes);
 var md5 = require('md5');
 
 const getAllUsers = (req, res) => {
@@ -22,6 +23,33 @@ const getOneUser = (req, res) => {
     });
 };
 
+const getCharRankExp = (req, res) => {
+  Characters
+    .findAll({
+      order: [["Exp", "DESC"]],
+      where: {
+        CharType: req.params.chartype,
+      },
+      limit : 10,
+    })
+    .then((data) => {
+      res.status(200).json(data);
+  });
+};
+
+const getCharRankWin = (req, res) => {
+  Characters
+    .findAll({
+      order: [["Win", "DESC"]],
+      where: {
+        CharType: req.params.chartype,
+      },
+      limit : 10,
+    })
+    .then((data) => {
+      res.status(200).json(data);
+  });
+};
 
 const userAuth = (req, res) => {
      let { Login, passwd } = req.body;
@@ -32,8 +60,7 @@ const userAuth = (req, res) => {
      }).then(users => {
        if (!users) {
          return res.status(404).send("User not found");
-          }  else {
-          
+          } else {
              if (md5(passwd)!==users.passwd) 
               return res.status(404).send("Invalid password");
             res
@@ -41,13 +68,12 @@ const userAuth = (req, res) => {
             .send("Success"); 
        }  
    });
-  
 }
-
-
 
 module.exports = {
   getAllUsers,
   getOneUser,
+  getCharRankExp,
+  getCharRankWin
   userAuth
 };
