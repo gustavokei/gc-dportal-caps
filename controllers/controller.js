@@ -23,23 +23,28 @@ const getOneUser = (req, res) => {
     });
 };
 
-const userAuth = (req, res) => {
-  let { Login, passwd } = req.body;
-  users
-    .findOne({
-      where: {
-        Login: Login,
-      },
-    })
-    .then((users) => {
-      if (!users) {
-        return res.status(404).send("User not found");
-      } else {
-        if (md5(passwd) !== users.passwd)
-          return res.status(404).send("Invalid password");
-        res.status(200).send("Success");
-      }
-    });
+const getCharRankExp = (req, res) => {
+  Characters.findAll({
+    order: [["Exp", "DESC"]],
+    where: {
+      CharType: req.params.chartype,
+    },
+    limit: 10,
+  }).then((data) => {
+    res.status(200).json(data);
+  });
+};
+
+const getCharRankWin = (req, res) => {
+  Characters.findAll({
+    order: [["Win", "DESC"]],
+    where: {
+      CharType: req.params.chartype,
+    },
+    limit: 10,
+  }).then((data) => {
+    res.status(200).json(data);
+  });
 };
 
 const getCharacter = (req, res) => {
@@ -85,9 +90,39 @@ const updateCharacter = (req, res) => {
   });
 };
 
+const userAuth = (req, res) => {
+  let { Login, passwd } = req.body;
+  users
+    .findOne({
+      where: {
+        Login: Login,
+      },
+    })
+    .then((users) => {
+      if (!users) {
+        return res.status(404).send("User not found");
+      } else {
+        if (md5(passwd) !== users.passwd)
+          return res.status(404).send("Invalid password");
+        res.status(200).send("Success");
+      }
+    })
+    .then((users) => {
+      if (!users) {
+        return res.status(404).send("User not found");
+      } else {
+        if (md5(passwd) !== users.passwd)
+          return res.status(404).send("Invalid password");
+        res.status(200).send("Success");
+      }
+    });
+};
+
 module.exports = {
   getAllUsers,
   getOneUser,
+  getCharRankExp,
+  getCharRankWin,
   userAuth,
   getCharacter,
   updateCharacter,
