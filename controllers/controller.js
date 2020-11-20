@@ -4,6 +4,7 @@ const users = require("../models/users")(sequelize, DataTypes);
 const gcappemail = require("../models/GCAPPEMAIL")(sequelize, DataTypes);
 const validateRegisterInput = require("../validation/register");
 var md5 = require('md5');
+const jwt = require('njwt')
 
 const getAllUsers = (req, res) => {
   users.findAll().then((data) => {
@@ -25,6 +26,9 @@ const getOneUser = (req, res) => {
 };
 
 
+
+
+
 const userAuth = (req, res) => {
      let { Login, passwd } = req.body;
      users.findOne({
@@ -33,20 +37,82 @@ const userAuth = (req, res) => {
       }
      }).then(users => {
        if (!users) {
-         return res.status(404).json({
-           errors: [{ users: "not found" }],
-         });
+        return res.status(404).json("User not found");
           }  else {
           
-             if (md5(passwd)!==users.passwd) 
-              return res.status(400).json({"Incorrect" : "Password"});
-            res
-            .status(200)
-            .json({"status" : "success"}); 
+             if (md5(passwd)!==users.passwd) {
+             return res.status(404).json("Invalid password");
+             }
+             else{
+
+            //  "Login Success"
+            const payload = {
+              id: users.id,
+              name: users.Login,
+              UniqueID: users.LoginUID,
+              password: passwd
+            };
+
+
+             //  "Creating Token"
+
+            const token = jwt.create(payload, 'top-secret-phrase')
+            token.setExpiration(new Date().getTime() + 60*1000)
+      //      res.send(token.compact())
+      res.json({
+        success: true,
+        token: token.compact()
+      });
+
+             }
        }  
    });
   
 }
+
+          //  "Verifying Token"
+const verify = ((req, res) => {
+
+  const jwt = require('njwt')
+  const { token } = req.params
+  jwt.verify(token, 'top-secret-phrase', (err, verifiedJwt) => {
+    if(err){
+      res.send(err.message)
+    }else{
+      res.json({
+        message: 'Successful Login...',
+        verifiedJwt
+      });
+    }
+  })
+
+})
+
+const verifyToken = ((req, res) => {
+
+  const jwt = require('njwt')
+  const { token } = req.body
+  jwt.verify(token, 'top-secret-phrase', (err, verifiedJwt) => {
+    if(err){
+      res.send(err.message)
+    }else{
+      res.json({
+        message: 'Successful Login...',
+        verifiedJwt
+      });
+    }
+  })
+
+  //return res.status(200).send(token);
+
+})
+
+
+
+
+
+
+
 
 const register = function(req, res){
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -57,7 +123,7 @@ const register = function(req, res){
 
   users.findOne({ where: {Login: req.body.Login }}).then(users => {
     if (users) {
-      return res.status(400).json({ email: "Email already exists" });
+      return res.status(400).send("Email already exists" );
     } else {
      password =  md5(req.body.passwd);
 
@@ -97,6 +163,8 @@ module.exports = {
   getOneUser,
   userAuth,
   register,
+  verify,
+  verifyToken
   
 
 };
