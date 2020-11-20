@@ -71,22 +71,6 @@ const userAuth = (req, res) => {
 }
 
           //  "Verifying Token"
-const verify = ((req, res) => {
-
-  const jwt = require('njwt')
-  const { token } = req.params
-  jwt.verify(token, 'top-secret-phrase', (err, verifiedJwt) => {
-    if(err){
-      res.send(err.message)
-    }else{
-      res.json({
-        message: 'Successful Login...',
-        verifiedJwt
-      });
-    }
-  })
-
-})
 
 const verifyToken = ((req, res) => {
 
