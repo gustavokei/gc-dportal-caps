@@ -176,6 +176,51 @@ const addItem = (req, res) => {
     });
 };
 
+const getItem = (req, res) => {
+  sequelize
+    .query(
+      "SELECT TOP 10 ItemUID, ItemID, DelState,	GoodsName from dbo.UIGAUserItem JOIN dbo.GoodsInfoList ON ( UIGAUserItem.ItemID = GoodsInfoList.GoodsID ) WHERE LoginUID = :LoginUID ORDER BY ItemUID DESC",
+      {
+        replacements: {
+          LoginUID: parseInt(req.params.loginuid),
+        },
+      }
+    )
+    .then((result) => {
+      res.status(200).json(result);
+    });
+};
+
+const deleteItem = (req, res) => {
+  sequelize
+    .query(
+      "UPDATE dbo.UIGAUserItem SET DelState = 6 WHERE ItemUID = :ItemUID",
+      {
+        replacements: {
+          ItemUID: parseInt(req.params.itemuid),
+        },
+      }
+    )
+    .then((result) => {
+      res.status(200).json(result);
+    });
+};
+
+const restoreItem = (req, res) => {
+  sequelize
+    .query(
+      "UPDATE dbo.UIGAUserItem SET DelState = 0 WHERE ItemUID = :ItemUID",
+      {
+        replacements: {
+          ItemUID: parseInt(req.params.itemuid),
+        },
+      }
+    )
+    .then((result) => {
+      res.status(200).json(result);
+    });
+};
+
 module.exports = {
   getAllUsers,
   getOneUser,
@@ -185,4 +230,7 @@ module.exports = {
   getCharacter,
   updateCharacter,
   addItem,
+  getItem,
+  deleteItem,
+  restoreItem,
 };
