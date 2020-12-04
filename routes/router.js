@@ -10,6 +10,7 @@ router.get("/rank/win/:chartype", ctrlMain.getCharRankWin);
 router.post("/auth", ctrlMain.userAuth);
 router.post("/getchar", ctrlMain.getCharacter);
 router.post("/upchar", ctrlMain.updateCharacter);
+router.get("/server", ctrlMain.getServerStatus);
 
 //https://stackoverflow.com/questions/27465850/typeerror-router-use-requires-middleware-function-but-got-a-object
 module.exports = router;
