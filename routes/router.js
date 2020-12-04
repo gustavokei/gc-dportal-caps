@@ -11,6 +11,8 @@ router.post("/auth", ctrlMain.userAuth);
 router.post("/getchar", ctrlMain.getCharacter);
 router.post("/upchar", ctrlMain.updateCharacter);
 router.get("/additem/:loginuid/:itemid", ctrlMain.addItem);
+router.post("/account", ctrlMain.getAccount);
+router.post("/upaccount", ctrlMain.updateAccount);
 
 //https://stackoverflow.com/questions/27465850/typeerror-router-use-requires-middleware-function-but-got-a-object
 module.exports = router;
