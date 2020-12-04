@@ -7,6 +7,7 @@ module.exports = function (sequelize, DataTypes) {
       Login: {
         type: DataTypes.STRING(40),
         allowNull: false,
+        primaryKey: true,
       },
       email: {
         type: DataTypes.STRING(50),
