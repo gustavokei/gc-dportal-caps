@@ -223,6 +223,8 @@ const restoreItem = (req, res) => {
     .then((result) => {
       res.status(200).json(result);
     });
+};
+
 const getServerStatus = (req, res) => {
   ConnectStatusDB.findAll().then((data) => {
     if (data == "") {
