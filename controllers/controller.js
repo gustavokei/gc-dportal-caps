@@ -2,6 +2,10 @@ const sequelize = require("../config/sequelize").sequelize;
 const DataTypes = require("sequelize");
 const users = require("../models/users")(sequelize, DataTypes);
 const Characters = require("../models/Characters")(sequelize, DataTypes);
+const ConnectStatusDB = require("../models/ConnectStatusDB")(
+  sequelize,
+  DataTypes
+);
 var md5 = require("md5");
 
 const getAllUsers = (req, res) => {
@@ -219,6 +223,14 @@ const restoreItem = (req, res) => {
     .then((result) => {
       res.status(200).json(result);
     });
+const getServerStatus = (req, res) => {
+  ConnectStatusDB.findAll().then((data) => {
+    if (data == "") {
+      return res.status(404).send("There were no current server");
+    } else {
+      res.status(200).json(data);
+    }
+  });
 };
 
 module.exports = {
@@ -233,4 +245,5 @@ module.exports = {
   getItem,
   deleteItem,
   restoreItem,
+  getServerStatus,
 };
