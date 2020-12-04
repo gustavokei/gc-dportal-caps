@@ -1,7 +1,7 @@
 const sequelize = require("../config/sequelize").sequelize;
 const DataTypes = require("sequelize");
 const users = require("../models/users")(sequelize, DataTypes);
-const gcappemail = require("../models/GCAPPEMAIL")(sequelize, DataTypes);
+const gcappemail = require("../models/GCAPPEmail")(sequelize, DataTypes);
 const validateRegisterInput = require("../validation/register");
 const Characters = require("../models/Characters")(sequelize, DataTypes);
 var md5 = require("md5");
