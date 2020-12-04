@@ -6,21 +6,19 @@ const validateRegisterInput = require("../validation/register");
 const Characters = require("../models/Characters")(sequelize, DataTypes);
 var md5 = require("md5");
 const jwt = require("njwt");
-const Characters = require("../models/Characters")(sequelize, DataTypes);
 const ConnectStatusDB = require("../models/ConnectStatusDB")(
   sequelize,
   DataTypes
 );
-var md5 = require("md5");
 
 const getAllUsers = (req, res) => {
-  users.findAll().then(data => {
+  users.findAll().then((data) => {
     res.status(200).json(data);
   });
 };
 
 const getAllEmail = (req, res) => {
-  gcappemail.findAll().then(data => {
+  gcappemail.findAll().then((data) => {
     res.status(200).json(data);
   });
 };
@@ -30,10 +28,10 @@ const getOneUser = (req, res) => {
   users
     .findAll({
       where: {
-        Login: req.params.login
-      }
+        Login: req.params.login,
+      },
     })
-    .then(data => {
+    .then((data) => {
       res.status(200).json(data);
     });
 };
@@ -43,10 +41,10 @@ const getEmail = (req, res) => {
   gcappemail
     .findOne({
       where: {
-        Login: Login
-      }
+        Login: Login,
+      },
     })
-    .then(users => {
+    .then((users) => {
       return res.status(200).json(users.email);
     });
 };
@@ -55,10 +53,6 @@ const getCharRankExp = (req, res) => {
   Characters.findAll({
     order: [["Exp", "DESC"]],
     where: {
-      CharType: req.params.chartype
-    },
-    limit: 10
-  }).then(data => {
       CharType: req.params.chartype,
     },
     limit: 10,
@@ -71,10 +65,6 @@ const getCharRankWin = (req, res) => {
   Characters.findAll({
     order: [["Win", "DESC"]],
     where: {
-      CharType: req.params.chartype
-    },
-    limit: 10
-  }).then(data => {
       CharType: req.params.chartype,
     },
     limit: 10,
@@ -88,9 +78,6 @@ const getCharacter = (req, res) => {
   Characters.findAll({
     where: {
       Login: Login,
-      CharType: CharType
-    }
-  }).then(data => {
       CharType: CharType,
     },
   }).then((data) => {
@@ -113,10 +100,6 @@ const updateCharacter = (req, res) => {
     {
       where: {
         Login: Login,
-        CharType: CharType
-      }
-    }
-  ).then(data => {
         CharType: CharType,
       },
     }
@@ -139,10 +122,10 @@ const userAuth = (req, res) => {
   users
     .findOne({
       where: {
-        Login: Login
-      }
+        Login: Login,
+      },
     })
-    .then(users => {
+    .then((users) => {
       if (!users) {
         return res.status(404).json("User not found");
       } else {
@@ -154,22 +137,22 @@ const userAuth = (req, res) => {
           gcappemail
             .findOne({
               where: {
-                Login: users.Login
-              }
+                Login: users.Login,
+              },
             })
-            .then(users => {
+            .then((users) => {
               usrEmail = users.email;
             });
 
           function cow() {
             return gcappemail.findOne({
               where: {
-                Login: "zaman"
-              }
+                Login: "zaman",
+              },
             });
           }
 
-          cow().then(function(result) {
+          cow().then(function (result) {
             userEmail = result.email;
           });
 
@@ -178,7 +161,7 @@ const userAuth = (req, res) => {
             id: users.id,
             name: users.Login,
             email: userEmail,
-            UniqueID: users.LoginUID
+            UniqueID: users.LoginUID,
             //password: passwd
           };
           //  "Creating Token"
@@ -188,31 +171,9 @@ const userAuth = (req, res) => {
           //      res.send(token.compact())
           res.json({
             success: true,
-            token: token.compact()
+            token: token.compact(),
           });
         }
-  users
-    .findOne({
-      where: {
-        Login: Login,
-      },
-    })
-    .then((users) => {
-      if (!users) {
-        return res.status(404).send("User not found");
-      } else {
-        if (md5(passwd) !== users.passwd)
-          return res.status(404).send("Invalid password");
-        res.status(200).send("Success");
-      }
-    })
-    .then((users) => {
-      if (!users) {
-        return res.status(404).send("User not found");
-      } else {
-        if (md5(passwd) !== users.passwd)
-          return res.status(404).send("Invalid password");
-        res.status(200).send("Success");
       }
     });
 };
@@ -228,7 +189,7 @@ const verifyToken = (req, res) => {
     } else {
       res.json({
         message: "Successful Login...",
-        verifiedJwt
+        verifiedJwt,
       });
     }
   });
@@ -236,14 +197,14 @@ const verifyToken = (req, res) => {
   //return res.status(200).send(token);
 };
 
-const register = function(req, res) {
+const register = function (req, res) {
   const { errors, isValid } = validateRegisterInput(req.body);
 
   if (!isValid) {
     return res.status(400).json(errors);
   }
 
-  users.findOne({ where: { Login: req.body.Login } }).then(users => {
+  users.findOne({ where: { Login: req.body.Login } }).then((users) => {
     if (users) {
       return res.status(400).send("Email already exists");
     } else {
@@ -263,7 +224,7 @@ const register = function(req, res) {
           "','0',(SELECT TOP 1 LoginUID FROM dbo.users ORDER BY LoginUID DESC) + 1, GETDATE(), GETDATE(),GETDATE(), 0, 30000, '0.0.0.0', 0, 0x000000, 0, 0)",
         { type: sequelize.QueryTypes.INSERT }
       )
-      .then(function(result) {
+      .then(function (result) {
         if (result) {
           gcappemail.sequelize.query(
             "INSERT INTO GCAPPEmail (Login, email) VALUES('" +
@@ -274,15 +235,19 @@ const register = function(req, res) {
             { type: sequelize.QueryTypes.INSERT }
           );
           return res.json(200, {
-            response: { code: 200, message: "User Registered Successfully" }
+            response: { code: 200, message: "User Registered Successfully" },
           });
         } else {
           res.json(400, {
-            response: { code: 400, message: "Error Occured while Registration" }
+            response: {
+              code: 400,
+              message: "Error Occured while Registration",
+            },
           });
         }
       });
   }
+};
 
 const { QueryTypes } = require("sequelize");
 const addItem = (req, res) => {
@@ -395,7 +360,6 @@ const getServerStatus = (req, res) => {
       res.status(200).json(data);
     }
   });
-
 };
 
 module.exports = {
@@ -409,12 +373,7 @@ module.exports = {
   getCharRankWin,
   getCharacter,
   updateCharacter,
-  verifyToken
-  getCharRankExp,
-  getCharRankWin,
-  userAuth,
-  getCharacter,
-  updateCharacter,
+  verifyToken,
   addItem,
   getItem,
   deleteItem,
