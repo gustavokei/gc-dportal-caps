@@ -23,7 +23,9 @@ Your server should now be running on [localhost:4000](http://localhost:4000/).
 
 ## .env file configuration
 
-This file will provide the database connection information to the server.
+The database used in this project was provided by a 3rd party provider
+
+This file will configure the database connection
 
 * `DB_DATABASE` = the database name
 * `DB_USER` = the user name
