@@ -20,6 +20,7 @@ npm start
 ```
 
 Your server should now be running on [localhost:4000](http://localhost:4000/)
+
 You can try accessing [localhost:4000/api/all](http://localhost:4000/api/all) to see if it is working
 
 ## .env file configuration
