@@ -16,10 +16,11 @@ cp .env.sample .env
 // modify .env as needed
 npm install
 npm start
-// visit localhost:3000
+// visit localhost:4000
 ```
 
-Your server should now be running on [localhost:4000](http://localhost:4000/).
+Your server should now be running on [localhost:4000](http://localhost:4000/)
+You can try accessing [localhost:4000/api/all](http://localhost:4000/api/all) to see if it is working
 
 ## .env file configuration
 
