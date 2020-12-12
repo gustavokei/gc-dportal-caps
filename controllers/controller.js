@@ -179,7 +179,7 @@ const addItem = (req, res) => {
 const getAccount = (req, res) => {
   sequelize
     .query(
-      "SELECT dbo.users.Login,  dbo.GCAPPEmail.email, dbo.users.passwd, dbo.users.gamePoint, dbo.CashUsers.Cash, dbo.VCGAVirtualCash.VCPoint, dbo.VCGAVirtualCash.LoginUID FROM dbo.VCGAVirtualCash INNER JOIN dbo.users ON (dbo.VCGAVirtualCash.LoginUID = dbo.users.LoginUID) INNER JOIN dbo.GCAPPEmail ON (dbo.users.Login = dbo.GCAPPEmail.Login) INNER JOIN dbo.CashUsers ON (dbo.GCAPPEmail.Login = dbo.CashUsers.Login) WHERE dbo.users.Login = :Login",
+       "SELECT dbo.users.Login,  dbo.GCAPPEmail.email, dbo.users.passwd, dbo.users.gamePoint, dbo.CashUsers.Cash, dbo.VCGAVirtualCash.VCPoint, dbo.VCGAVirtualCash.LoginUID FROM dbo.VCGAVirtualCash INNER JOIN dbo.users ON (dbo.VCGAVirtualCash.LoginUID = dbo.users.LoginUID) INNER JOIN dbo.GCAPPEmail ON (dbo.users.Login = dbo.GCAPPEmail.Login) INNER JOIN dbo.CashUsers ON (dbo.GCAPPEmail.Login = dbo.CashUsers.Login) WHERE dbo.users.Login = :Login",
       {
         type: QueryTypes.SELECT,
         replacements: {
@@ -193,23 +193,52 @@ const getAccount = (req, res) => {
 };
 
 const updateAccount = (req, res) => {
-  sequelize
-    .query(
-      "updateAccountStoredProc @Login_input=:Login, @email_input=:email, @passwd_input=:passwd, @gamePoint_input=:gamePoint, @Cash_input=:Cash, @VCPoint_input=:VCPoint",
-      {
-        replacements: {
-          Login: req.body.Login,
-          email: req.body.email,
-          passwd: md5(req.body.passwd),
-          gamePoint: req.body.gamePoint,
-          Cash: req.body.Cash,
-          VCPoint: req.body.VCPoint,
-        },
+  users
+    .findOne({
+      where: {
+        Login: req.body.Login,
+      },
+    })
+    .then((result) => {
+      if (req.body.passwd !== result.passwd) { // password will be updated and encrypted
+        sequelize
+          .query(
+            "updateAccountStoredProc @Login_input=:Login, @email_input=:email, @passwd_input=:passwd, @gamePoint_input=:gamePoint, @Cash_input=:Cash, @VCPoint_input=:VCPoint",
+            {
+              replacements: {
+                Login: req.body.Login,
+                email: req.body.email,
+                passwd: md5(req.body.passwd),
+                gamePoint: req.body.gamePoint,
+                Cash: req.body.Cash,
+                VCPoint: req.body.VCPoint,
+              },
+            }
+          )
+          .then((val) => {
+            console.log(val);
+            res.status(200).json(val);
+          });
+      } else { // current password will remain the same
+        sequelize
+          .query(
+            "updateAccountStoredProc @Login_input=:Login, @email_input=:email, @passwd_input=:passwd, @gamePoint_input=:gamePoint, @Cash_input=:Cash, @VCPoint_input=:VCPoint",
+            {
+              replacements: {
+                Login: req.body.Login,
+                email: req.body.email,
+                passwd: req.body.passwd,
+                gamePoint: req.body.gamePoint,
+                Cash: req.body.Cash,
+                VCPoint: req.body.VCPoint,
+              },
+            }
+          )
+          .then((val) => {
+            console.log(val);
+            res.status(200).json(val);
+          });
       }
-    )
-    .then((val) => {
-      console.log(val);
-      res.status(200).json(val);
     });
 };
 
