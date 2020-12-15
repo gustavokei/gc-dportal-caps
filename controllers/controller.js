@@ -51,7 +51,7 @@ const getEmail = (req, res) => {
 
 const getCharRankExp = (req, res) => {
   Characters.findAll({
-    order: [["Exp", "DESC"]],
+    order: [["ExpS4", "DESC"]],
     where: {
       CharType: req.params.chartype,
     },
