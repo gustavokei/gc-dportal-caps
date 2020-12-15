@@ -1,39 +1,40 @@
-# node-js-getting-started
+# A NodeJS REST API for the [gc-app-caps](https://github.com/gustavokei/gc-app-caps) project
+This server listens to front-end requests, fetches data from a MSSQL database, and then sends the response back.
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+The name "dportal" refers to a [Dimensional Portal](https://grandchase.fandom.com/wiki/Dimensional_Chasm), which is an element from the Korean game [Grand Chase](https://grandchase.fandom.com/wiki/Grand_Chase_Wiki).
 
-This application supports the [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+# Getting started
 
-## Running Locally
-
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
-
-```sh
-$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
-```
-
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-## Deploying to Heroku
+* Clone this repository on your local computer
+* Configure .env as needed 
+* Run the `npm install` and `npm start`.
 
 ```
-$ heroku create
-$ git push heroku main
-$ heroku open
+git clone https://github.com/gustavokei/gc-dportal-caps.git
+cd gc-dportal-caps/
+cp .env.sample .env
+// modify .env as needed
+npm install
+npm start
+// visit localhost:4000
 ```
-or
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+Your server should now be running on [localhost:4000](http://localhost:4000/)
+
+You can try accessing [localhost:4000/api/all](http://localhost:4000/api/all) to see if it is working
+
+## .env file configuration
+
+The database used in this project was provided by a 3rd party provider
+
+This file will configure the database connection
+
+* `DB_DATABASE` = the database name
+* `DB_USER` = the user name
+* `DB_PASS` = the user password
+* `DB_HOST` = server address
+* `DB_PORT` = server port
 
 ## Documentation
 
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
-- [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+For more information about our project, [visit our wiki.](https://github.com/gustavokei/gc-dportal-caps/wiki)
