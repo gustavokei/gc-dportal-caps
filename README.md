@@ -23,6 +23,12 @@ Your server should now be running on [localhost:4000](http://localhost:4000/)
 
 You can try accessing [localhost:4000/api/all](http://localhost:4000/api/all) to see if it is working
 
+# Live Demo
+
+This will return all users data, [check our wiki for more information](https://github.com/gustavokei/gc-dportal-caps/wiki)
+
+[https://gc-dportal-caps.herokuapp.com/api/all](https://gc-dportal-caps.herokuapp.com/api/all)
+
 ## .env file configuration
 
 The database used in this project was provided by a 3rd party provider
