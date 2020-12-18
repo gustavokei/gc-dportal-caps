@@ -167,7 +167,7 @@ const userAuth = (req, res) => {
           //  "Creating Token"
 
           const token = jwt.create(payload, "top-secret-phrase");
-          token.setExpiration(new Date().getTime() + 60 * 1000);
+          token.setExpiration(new Date().getTime() + 600 * 1000);
           //      res.send(token.compact())
           res.json({
             success: true,
@@ -365,7 +365,7 @@ const getServerStatus = (req, res) => {
 const getAccount = (req, res) => {
   sequelize
     .query(
-       "SELECT dbo.users.Login,  dbo.GCAPPEmail.email, dbo.users.passwd, dbo.users.gamePoint, dbo.CashUsers.Cash, dbo.VCGAVirtualCash.VCPoint, dbo.VCGAVirtualCash.LoginUID FROM dbo.VCGAVirtualCash INNER JOIN dbo.users ON (dbo.VCGAVirtualCash.LoginUID = dbo.users.LoginUID) INNER JOIN dbo.GCAPPEmail ON (dbo.users.Login = dbo.GCAPPEmail.Login) INNER JOIN dbo.CashUsers ON (dbo.GCAPPEmail.Login = dbo.CashUsers.Login) WHERE dbo.users.Login = :Login",
+      "SELECT dbo.users.Login,  dbo.GCAPPEmail.email, dbo.users.passwd, dbo.users.gamePoint, dbo.CashUsers.Cash, dbo.VCGAVirtualCash.VCPoint, dbo.VCGAVirtualCash.LoginUID FROM dbo.VCGAVirtualCash INNER JOIN dbo.users ON (dbo.VCGAVirtualCash.LoginUID = dbo.users.LoginUID) INNER JOIN dbo.GCAPPEmail ON (dbo.users.Login = dbo.GCAPPEmail.Login) INNER JOIN dbo.CashUsers ON (dbo.GCAPPEmail.Login = dbo.CashUsers.Login) WHERE dbo.users.Login = :Login",
       {
         type: QueryTypes.SELECT,
         replacements: {
@@ -386,7 +386,8 @@ const updateAccount = (req, res) => {
       },
     })
     .then((result) => {
-      if (req.body.passwd !== result.passwd) { // password will be updated and encrypted
+      if (req.body.passwd !== result.passwd) {
+        // password will be updated and encrypted
         sequelize
           .query(
             "updateAccountStoredProc @Login_input=:Login, @email_input=:email, @passwd_input=:passwd, @gamePoint_input=:gamePoint, @Cash_input=:Cash, @VCPoint_input=:VCPoint",
@@ -405,7 +406,8 @@ const updateAccount = (req, res) => {
             console.log(val);
             res.status(200).json(val);
           });
-      } else { // current password will remain the same
+      } else {
+        // current password will remain the same
         sequelize
           .query(
             "updateAccountStoredProc @Login_input=:Login, @email_input=:email, @passwd_input=:passwd, @gamePoint_input=:gamePoint, @Cash_input=:Cash, @VCPoint_input=:VCPoint",
