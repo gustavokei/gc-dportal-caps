@@ -39,8 +39,8 @@ This file will configure the database connection
 - `SQL_DATABASE` = the database name
 - `SQL_USER` = the user name
 - `SQL_PASS` = the user password
-- `SQL_HOST` = server address
-- `SQL_PORT` = server port
+- `NGROK_HOST` = server address
+- `NGROK_PORT` = server port
 
 ## Documentation
 
