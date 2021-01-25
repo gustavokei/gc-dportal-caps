@@ -1,13 +1,14 @@
 # A NodeJS REST API for the [gc-app-caps](https://github.com/gustavokei/gc-app-caps) project
+
 This server listens to front-end requests, fetches data from a MSSQL database, and then sends the response back.
 
 The name "dportal" refers to a [Dimensional Portal](https://grandchase.fandom.com/wiki/Dimensional_Chasm), which is an element from the Korean game [Grand Chase](https://grandchase.fandom.com/wiki/Grand_Chase_Wiki).
 
 # Getting started
 
-* Clone this repository on your local computer
-* Configure .env as needed 
-* Run the `npm install` and `npm start`.
+- Clone this repository on your local computer
+- Configure .env as needed
+- Run the `npm install` and `npm start`.
 
 ```
 git clone https://github.com/gustavokei/gc-dportal-caps.git
@@ -35,11 +36,11 @@ The database used in this project was provided by a 3rd party provider
 
 This file will configure the database connection
 
-* `DB_DATABASE` = the database name
-* `DB_USER` = the user name
-* `DB_PASS` = the user password
-* `DB_HOST` = server address
-* `DB_PORT` = server port
+- `SQL_DATABASE` = the database name
+- `SQL_USER` = the user name
+- `SQL_PASS` = the user password
+- `SQL_HOST` = server address
+- `SQL_PORT` = server port
 
 ## Documentation
 
