@@ -277,7 +277,7 @@ const addItem = (req, res) => {
                 Period: -1,
                 Duration: -1,
                 GetType: 0,
-                Status: 0,
+                Status: 2,
                 ItemLevel: 0,
                 StrengthLevel: 0,
               },
