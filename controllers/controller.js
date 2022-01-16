@@ -283,25 +283,9 @@ const addItem = (req, res) => {
               },
             }
           )
-          .then((result) => {
-            sequelize
-              .query(
-                "UIGAUserItem_merge_20130415 @01iLoginUID_input=:LoginUID, @02iItemID_input=:ItemID, @03iGradeID_input=:GradeID, @04iWIGAUID_input=:WIGAUID",
-                {
-                  replacements: {
-                    LoginUID: parseInt(req.params.loginuid),
-                    ItemID: parseInt(req.params.itemid),
-                    GradeID: 3,
-                    WIGAUID: Object.values(
-                      Object.values(Object.values(result)[0])[0]
-                    )[0],
-                  },
-                }
-              )
-              .then((result) => {
-                console.log(itemName);
-                res.status(200).json(itemName);
-              });
+          .then(() => {
+            console.log(itemName);
+            res.status(200).json(itemName);
           });
       }
     });
