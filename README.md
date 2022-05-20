@@ -1,8 +1,10 @@
-# A NodeJS REST API for the [gc-app-caps](https://github.com/gustavokei/gc-app-caps) project
+# A NodeJS REST API app for a CRUD Game Portal
 
 This server listens to front-end requests, fetches data from a MSSQL database, and then sends the response back.
 
-The name "dportal" refers to a [Dimensional Portal](https://grandchase.fandom.com/wiki/Dimensional_Chasm), which is an element from the Korean game [Grand Chase](https://grandchase.fandom.com/wiki/Grand_Chase_Wiki).
+The name "dportal" refers to a [Dimensional Portal](https://grandchase.fandom.com/wiki/Dimensional_Chasm), which is an element from the Korean game [Grand Chase (for PC)](https://grandchase.fandom.com/wiki/Grand_Chase_Wiki).
+
+Composed as a full-stack solution, this project is also split in two (front-end app is [gc-app-caps](https://github.com/gustavokei/gc-app-caps))
 
 # Getting started
 
