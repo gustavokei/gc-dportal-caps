@@ -4,6 +4,8 @@ This server listens to front-end requests, fetches data from a MSSQL database, a
 
 The name "dportal" refers to a [Dimensional Portal](https://grandchase.fandom.com/wiki/Dimensional_Chasm), which is an element from the Korean game [Grand Chase (for PC)](https://grandchase.fandom.com/wiki/Grand_Chase_Wiki).
 
+> A dimensional chasm, rift, gap, fissure or crevice refers to the place located between the ends of all dimensions in the Grand Chase universe.
+
 Composed as a full-stack solution, this project is also split in two (front-end app is [gc-app-caps](https://github.com/gustavokei/gc-app-caps))
 
 # Getting started
