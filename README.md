@@ -1,4 +1,4 @@
-# A NodeJS REST API app for a CRUD Game Portal
+# A Game Portal NodeJS REST API
 
 This server listens to front-end requests, fetches data from a MSSQL database, and then sends the response back.
 
