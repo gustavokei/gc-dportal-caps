@@ -24,7 +24,6 @@ const getAllEmail = (req, res) => {
 };
 
 const getOneUser = (req, res) => {
-  console.log(req.params);
   users
     .findAll({
       where: {
@@ -259,7 +258,6 @@ const addItem = (req, res) => {
       },
     })
     .then((result) => {
-      console.log(result);
       if (result == "") {
         // invalid id
         res.status(200).json("Error! Invalid ItemId");
@@ -284,7 +282,6 @@ const addItem = (req, res) => {
             }
           )
           .then(() => {
-            console.log(itemName);
             res.status(200).json(itemName);
           });
       }
@@ -387,7 +384,6 @@ const updateAccount = (req, res) => {
             }
           )
           .then((val) => {
-            console.log(val);
             res.status(200).json(val);
           });
       } else {
@@ -407,7 +403,6 @@ const updateAccount = (req, res) => {
             }
           )
           .then((val) => {
-            console.log(val);
             res.status(200).json(val);
           });
       }

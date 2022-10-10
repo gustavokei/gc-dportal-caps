@@ -22,5 +22,4 @@ router.get("/server", ctrlMain.getServerStatus);
 router.post("/account", ctrlMain.getAccount);
 router.post("/upaccount", ctrlMain.updateAccount);
 
-//https://stackoverflow.com/questions/27465850/typeerror-router-use-requires-middleware-function-but-got-a-object
 module.exports = router;

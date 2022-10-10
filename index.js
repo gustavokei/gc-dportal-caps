@@ -2,7 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 var cors = require("cors");
-const indexRouter = require("./routes/router");
+const chaseRouter = require("./routes/chase");
+const shadowRouter = require("./routes/shadow");
 
 // Add headers
 app.use(function(req, res, next) {
@@ -35,7 +36,8 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use("/api", indexRouter);
+app.use("/api", chaseRouter);
+app.use("/shadow", shadowRouter);
 
 //Listen on port for Heroku OR 4000
 app.listen(process.env.PORT || 4000, function() {
