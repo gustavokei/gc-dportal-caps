@@ -9,10 +9,10 @@ const register = (req, res) => {
       replacements: {
         userId: req.body.userId,
         pwd: md5(req.body.pwd),
-        userName: "",
-        idCardNum: "",
-        iOK: "",
-        iUserUid: "",
+        userName: req.body.userName,
+        idCardNum: req.body.idCardNum,
+        iOK: req.body.iOk,
+        iUserUid: req.body.iUserUid,
       },
     }
   )
