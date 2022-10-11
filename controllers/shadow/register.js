@@ -1,4 +1,4 @@
-const sequelize = require("../config/shadow").sequelize;
+const sequelize = require("../../config/shadow").sequelize;
 var md5 = require("md5");
 
 const register = (req, res) => {
