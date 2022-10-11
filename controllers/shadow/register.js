@@ -8,7 +8,7 @@ const register = (req, res) => {
       {
         replacements: {
           userId: req.body.userId,
-          pwd: md5(req.body.pwd),
+          pwd: md5(req.body.pwd).toUpperCase(),
           userName: req.body.userName,
           idCardNum: req.body.idCardNum,
           okCode: req.body.okCode,
