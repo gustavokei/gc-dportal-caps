@@ -11,8 +11,8 @@ const register = (req, res) => {
         pwd: md5(req.body.pwd),
         userName: "",
         idCardNum: "",
-        iOK: NULL,
-        iUserUid: NULL,
+        iOK: "",
+        iUserUid: "",
       },
     }
   )
