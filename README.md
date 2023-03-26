@@ -1,6 +1,4 @@
-# A Game Portal NodeJS REST API
-
-This server listens to front-end requests, fetches data from a MSSQL database, and then sends the response back.
+# A NodeJS middleware for an old anime game
 
 The name "dportal" refers to a [Dimensional Portal](https://grandchase.fandom.com/wiki/Dimensional_Chasm), which is an element from the Korean game [Grand Chase (for PC)](https://grandchase.fandom.com/wiki/Grand_Chase_Wiki).
 
@@ -30,9 +28,9 @@ You can try accessing [localhost:4000/api/all](http://localhost:4000/api/all) to
 
 # Live Demo
 
-This will return all users data, [check our wiki for more information](https://github.com/gustavokei/gc-dportal-caps/wiki)
+[https://api.devgames.app/api/all](https://api.devgames.app/api/all)
 
-[https://gc-dportal-caps.herokuapp.com/api/all](https://gc-dportal-caps.herokuapp.com/api/all)
+This will return all users data, [check our wiki for more information](https://github.com/gustavokei/gc-dportal-caps/wiki)
 
 ## .env file configuration
 
@@ -40,11 +38,11 @@ The database used in this project was provided by a 3rd party provider
 
 This file will configure the database connection
 
-- `SQL_DATABASE` = the database name
+- `SQL_DATABASE_LIST` = a list of databases, I'm currently using `,` + `split()` method to separate names
 - `SQL_USER` = the user name
 - `SQL_PASS` = the user password
-- `NGROK_HOST` = server address
-- `NGROK_PORT` = server port
+- `EXPOSED_HOST` = server address
+- `EXPOSED_PORT` = server port
 
 ## Documentation
 

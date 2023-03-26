@@ -1,4 +1,4 @@
-const sequelize = require("../config/sequelize").sequelize;
+const sequelize = require("../config/chase").sequelize;
 const DataTypes = require("sequelize");
 const users = require("../models/users")(sequelize, DataTypes);
 const gcappemail = require("../models/GCAPPEmail")(sequelize, DataTypes);
